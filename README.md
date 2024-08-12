@@ -1,2 +1,2 @@
-# Bootstrap
-In this ropo contains my bootstap projects
+# React
+In this ropo contains my react.js projects
