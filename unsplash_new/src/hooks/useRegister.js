@@ -4,6 +4,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 //global context
@@ -26,11 +27,14 @@ export const useRegister = () => {
 
   const registerWithEmail = (userName, email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed up
+      .then(async (userCredential) => {
+        await updateProfile(auth.currentUser, {
+          displayName: userName,
+          photoURL: `https://api.dicebear.com/9.x/initials/svg?seed=${userName}`,
+        });
         const user = userCredential.user;
         dispatch({ type: "LOGIN", payload: user });
-        toast.success("wellcome");
+        toast.success(`Wellcome ${userName}`);
       })
       .catch((error) => {
         const errorMessage = error.message;
