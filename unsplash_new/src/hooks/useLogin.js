@@ -14,7 +14,7 @@ export function useLogin() {
         const user = userCredential.user;
         console.log(user);
         dispatch({ type: "LOGIN", payload: user });
-        toast.success("wellcome :)");
+        toast.success("Wellcome again :)");
       })
       .catch((error) => {
         const errorMessage = error.message;
