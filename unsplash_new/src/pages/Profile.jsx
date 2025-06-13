@@ -9,8 +9,14 @@ import { sendEmailVerification } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { toast } from "react-toastify";
 
+//uuseState
+import { useState } from "react";
 //main function
 function Profile() {
+  const [imageBase64, setImagebase64] = useState(null);
+  const { user, loading } = useGlobalContext();
+
+  //verification function
   const sentVerification = () => {
     sendEmailVerification(auth.currentUser, {
       url: "http://localhost:5174/profile",
@@ -19,7 +25,18 @@ function Profile() {
     });
   };
 
-  const { user, loading } = useGlobalContext();
+  //update profile image
+  const ChangeBase64 = (e) => {
+    const file = e.target.files[0];
+
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      setImagebase64(reader.result);
+    });
+
+    reader.readAsDataURL(file);
+  };
+
   return (
     <div className="min-h-[65vh] px-[5%] mt-[5%]">
       <div className="flex items-center gap-5 flex-col sm:flex-row ">
@@ -27,7 +44,7 @@ function Profile() {
           <div className="relative">
             <img
               className=" rounded-full object-cover h-28 w-28"
-              src={user.photoURL}
+              src={!imageBase64 ? user.photoURL : imageBase64}
               alt={user.displayName + " profile"}
             />
             {loading && (
@@ -36,10 +53,10 @@ function Profile() {
               </span>
             )}
           </div>
-          {/* {!inputValue && (
+          {!imageBase64 && (
             <label>
               <input
-                onChange={imageBase64}
+                onChange={ChangeBase64}
                 accept="image/*"
                 type="file"
                 className="file-input file-input-xs file-input-bordered file-input-primary w-full max-w-xs"
@@ -47,22 +64,17 @@ function Profile() {
             </label>
           )}
 
-          {inputValue && (
+          {imageBase64 && (
             <div className="flex gap-2">
+              <button className="btn btn-primary btn-sm">Save</button>
               <button
-                onClick={savaNewProfileImage}
-                className="btn btn-primary btn-sm"
-              >
-                Save
-              </button>
-              <button
-                onClick={() => setInputValue(null)}
+                onClick={() => setImagebase64(null)}
                 className="btn btn-neutral btn-sm"
               >
                 Cancel
               </button>
             </div>
-          )} */}
+          )}
         </div>
 
         <div className="bg-base-200 w-full grow h-40 p-4 rounded-lg flex flex-col  md:flex-row justify-evenly">

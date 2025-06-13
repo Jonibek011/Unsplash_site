@@ -7,9 +7,13 @@ import { useGlobalContext } from "../hooks/useGlobalContext";
 //Next ui
 import { Avatar } from "@nextui-org/react";
 import { Link } from "react-router-dom";
+
+import { useDatabase } from "../hooks/useDatabase";
 //==============================================================
 function Image({ image, added }) {
-  const { likedImages, dispatch } = useGlobalContext();
+  const { likedImages, user: authUser, dispatch } = useGlobalContext();
+  const { addDocument } = useDatabase();
+
   const { urls, links, alt_description, user } = image;
 
   const downloadImage = (e) => {
@@ -25,6 +29,7 @@ function Image({ image, added }) {
 
     if (!alreadyAdded) {
       dispatch({ type: "LIKE", payload: image });
+      addDocument("likedImages", { ...image, uid: authUser.uid });
     } else {
       dispatch({ type: "DISLIKE", payload: image.id });
     }

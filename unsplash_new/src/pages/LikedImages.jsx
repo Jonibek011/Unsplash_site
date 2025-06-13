@@ -1,12 +1,15 @@
 //components
+import { useEffect } from "react";
 import { ImagesContainer } from "../components";
 //context
 import { useGlobalContext } from "../hooks/useGlobalContext";
 
+import { useCollection } from "../hooks/useCollection";
 //rrd
 import { Link } from "react-router-dom";
 function LikedImages() {
   const { likedImages } = useGlobalContext();
+  console.log("likedImagesdan", likedImages.length);
 
   if (likedImages.length == 0) {
     return (
@@ -22,7 +25,7 @@ function LikedImages() {
   }
   return (
     <div className="min-h-[90vh] custom-container my-10">
-      {likedImages.length > 0 && <ImagesContainer images={likedImages} />}
+      {likedImages.length && <ImagesContainer images={likedImages} />}
     </div>
   );
 }

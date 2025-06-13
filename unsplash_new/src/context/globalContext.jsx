@@ -1,5 +1,5 @@
 import { createContext, useEffect, useReducer } from "react";
-
+import { useCollection } from "../hooks/useCollection";
 export const MainContext = createContext();
 
 const changeState = (state, action) => {
@@ -12,8 +12,8 @@ const changeState = (state, action) => {
       return { ...state, readyChange: true };
     case "LOGOUT":
       return { ...state, user: null };
-    case "LIKE":
-      return { ...state, likedImages: [...state.likedImages, payload] };
+    case "ADD_LIKE":
+      return { ...state, likedImages: payload };
     case "DISLIKE":
       return {
         ...state,
@@ -33,16 +33,6 @@ const changeState = (state, action) => {
   }
 };
 
-// const getDataFromLocalStorage = () => {
-//   return (
-//     JSON.parse(localStorage.getItem("splash")) || {
-//       likedImages: [],
-//       downloadedImages: [],
-//       imageInfo: [],
-//     }
-//   );
-// };
-
 export function GlobalContextProvider({ children }) {
   const [state, dispatch] = useReducer(changeState, {
     user: null,
@@ -53,9 +43,18 @@ export function GlobalContextProvider({ children }) {
     loading: false,
   });
 
+  const { data: likedImages } = useCollection("likedImages", [
+    "uid",
+    "==",
+    state.user && state.user.uid,
+  ]);
+  console.log("globalStatedan", likedImages);
   useEffect(() => {
-    localStorage.setItem("splash", JSON.stringify(state));
-  }, [state]);
+    if (likedImages) {
+      dispatch({ type: "ADD_LIKE", payload: likedImages });
+    }
+  }, [likedImages]);
+
   return (
     <MainContext.Provider value={{ ...state, dispatch }}>
       {children}

@@ -32,6 +32,8 @@ export const action = async ({ request }) => {
 function Register() {
   const { registerWithGoogle, registerWithEmail } = useRegister();
   const formInfo = useActionData();
+
+  //register with email
   useEffect(() => {
     if (formInfo) {
       registerWithEmail(formInfo.userName, formInfo.email, formInfo.password);

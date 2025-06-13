@@ -3,20 +3,7 @@ import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 // next ui
-import { Avatar } from "@nextui-org/react";
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-  Button,
-} from "@nextui-org/react";
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-} from "@nextui-org/react";
+
 // import { AcmeLogo } from "./AcmeLogo.jsx";
 
 //react icons
@@ -35,7 +22,7 @@ const getDataFromLocalStorage = () => {
 function Navbar1() {
   const [theme, setTheme] = useState(getDataFromLocalStorage());
   const { user, dispatch } = useGlobalContext();
-  console.log(user);
+
   const toggleMode = () => {
     const newTheme = theme == "cupcake" ? "dracula" : "cupcake";
     setTheme(newTheme);
