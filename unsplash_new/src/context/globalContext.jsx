@@ -26,6 +26,8 @@ const changeState = (state, action) => {
       };
     case "INFO":
       return { ...state, imageInfo: payload };
+    case "LOADING":
+      return { ...state, payload: true };
     default:
       return state;
   }
@@ -48,6 +50,7 @@ export function GlobalContextProvider({ children }) {
     downloadedImages: [],
     imageInfo: [],
     readyChange: false,
+    loading: false,
   });
 
   useEffect(() => {

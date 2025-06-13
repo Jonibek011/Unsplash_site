@@ -6,7 +6,15 @@ import {
 //layouts
 import MainLayout from "./layouts/MainLayout";
 //pages
-import { Home, About, Contact, ImageInfo, Login, Register } from "./pages";
+import {
+  Home,
+  About,
+  Contact,
+  ImageInfo,
+  Login,
+  Register,
+  Profile,
+} from "./pages";
 import LikedImages from "./pages/LikedImages";
 import DownloadedImages from "./pages/DownloadedImages";
 
@@ -23,7 +31,6 @@ import { action as LoginAction } from "./pages/Login";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebaseConfig";
 import { useEffect } from "react";
-import { toast } from "react-toastify";
 function App() {
   const { user, dispatch, readyChange } = useGlobalContext();
 
@@ -60,6 +67,10 @@ function App() {
         {
           path: "/imageInfo",
           element: <ImageInfo />,
+        },
+        {
+          path: "profile",
+          element: <Profile />,
         },
       ],
     },

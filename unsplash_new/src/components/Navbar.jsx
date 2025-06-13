@@ -174,10 +174,10 @@ function Navbar1() {
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                 >
                   <li className="relative group">
-                    <a className="justify-between">
+                    <Link to="profile" className="justify-between">
                       Profile
                       <span className="badge">New</span>
-                    </a>
+                    </Link>
                     <span class="absolute top-0 right-52 hidden group-hover:inline-flex transition-all  items-center rounded-md bg-white px-2 py-1 text-xs font-semibold text-gray-600 ring-1 ring-inset ring-gray-500/10">
                       {user.displayName} <br />
                       {user.email}
