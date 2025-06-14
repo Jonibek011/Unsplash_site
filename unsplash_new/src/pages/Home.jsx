@@ -19,7 +19,7 @@ function Home() {
   const [allImages, setAllImages] = useState([]);
   const prevSearchInfo = useRef(searchInfo);
 
-  const { data, isPending, error } = useFetch(
+  const { data, isPending } = useFetch(
     `https://api.unsplash.com/search/photos?client_id=${
       import.meta.env.VITE_UNSPLASH_ACCESS_KEY
     }&query=${searchInfo ?? "All"}&page=${nextPage}`
