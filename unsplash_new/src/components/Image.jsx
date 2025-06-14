@@ -12,7 +12,7 @@ import { useDatabase } from "../hooks/useDatabase";
 //==============================================================
 function Image({ image, added }) {
   const { likedImages, user: authUser, dispatch } = useGlobalContext();
-  const { addDocument } = useDatabase();
+  const { addDocument, deleteDocument } = useDatabase();
 
   const { urls, links, alt_description, user } = image;
 
@@ -23,15 +23,16 @@ function Image({ image, added }) {
 
   const addLike = (image, event) => {
     event.preventDefault();
-    const alreadyAdded = likedImages.some((img) => {
+    const alreadyAdded = likedImages.find((img) => {
       return img.id == image.id;
     });
 
     if (!alreadyAdded) {
-      dispatch({ type: "LIKE", payload: image });
+      // dispatch({ type: "ADD_LIKE", payload: image });
       addDocument("likedImages", { ...image, uid: authUser.uid });
     } else {
-      dispatch({ type: "DISLIKE", payload: image.id });
+      // dispatch({ type: "DISLIKE", payload: image.id });
+      deleteDocument("likedImages", alreadyAdded._id);
     }
   };
 

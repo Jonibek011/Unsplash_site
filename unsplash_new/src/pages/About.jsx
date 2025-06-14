@@ -43,7 +43,13 @@ function About() {
               Lorem ipsum dolor sit amet consectetur adipisicing <br /> elit.
               Perferendis, laudantium?
             </p>
-            <button className="btn btn-secondary">See my works</button>
+            <Link
+              to="https://new-jonibek-portfolio.netlify.app/"
+              target="_blank"
+              className="btn btn-secondary"
+            >
+              See my works
+            </Link>
           </div>
           <div className="image-section hidden w-[40%] relative z-20 lg:flex justify-center items-center ps-20">
             <img

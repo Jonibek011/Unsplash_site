@@ -60,7 +60,7 @@ function Home() {
           onClick={() => setNextPage(nextPage + 1)}
           className="btn btn-secondary mx-auto w-full my-10"
         >
-          Read More
+          SHow More
         </button>
       </div>
     </div>

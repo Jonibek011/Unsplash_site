@@ -5,7 +5,33 @@ import { MdOutlineAlternateEmail } from "react-icons/md";
 
 import { Form } from "react-router-dom";
 
+//sendimg emailjs
+import emailjs from "@emailjs/browser";
+import { useRef } from "react";
+import { toast } from "react-toastify";
+
 function Contact() {
+  const formRef = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_79igx85",
+        "template_vpkahls",
+        formRef.current,
+        "WLtNqH1QxPi3uEcWk"
+      )
+      .then(() => {
+        toast.info("Message sent!");
+        formRef.current.reset();
+      })
+      .catch((err) => {
+        toast.error(err.text);
+      });
+  };
+
   return (
     <div className="min-h-[100vh]  bg-black">
       <img
@@ -35,6 +61,8 @@ function Contact() {
         </div>
         <div className="contact-form w-full md:w-[50%] flex justify-center items-center">
           <Form
+            ref={formRef}
+            onSubmit={sendEmail}
             method="POST"
             className="flex flex-col gap-8 md:border rounded-xl w-full md:w-[80%] border-orange-300 py-10 px-4"
           >
@@ -43,20 +71,20 @@ function Contact() {
             </h1>
             <input
               type="text"
-              name="userName"
+              name="user_name"
               placeholder="Your name"
               className="py-2 px-4 rounded-3xl bord border border-orange-300 outline-none text-white  bg-transparent"
             />
             <input
               type="email"
-              name="email"
+              name="user_email"
               placeholder="Your email"
               className="py-2 px-4 rounded-3xl bord border border-orange-300 outline-none text-white  bg-transparent"
             />
             <textarea
               className="py-2 px-4 rounded-3xl bord border border-orange-300 outline-none text-white  bg-transparent"
               rows={10}
-              name="textsArea"
+              name="message"
               id="textArea"
               placeholder="Your message"
             ></textarea>

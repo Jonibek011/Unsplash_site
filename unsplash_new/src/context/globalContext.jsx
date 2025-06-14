@@ -43,12 +43,12 @@ export function GlobalContextProvider({ children }) {
     loading: false,
   });
 
-  const { data: likedImages } = useCollection("likedImages", [
+  const { data: likedImages, loader } = useCollection("likedImages", [
     "uid",
     "==",
     state.user && state.user.uid,
   ]);
-  console.log("globalStatedan", likedImages);
+
   useEffect(() => {
     if (likedImages) {
       dispatch({ type: "ADD_LIKE", payload: likedImages });
@@ -56,7 +56,7 @@ export function GlobalContextProvider({ children }) {
   }, [likedImages]);
 
   return (
-    <MainContext.Provider value={{ ...state, dispatch }}>
+    <MainContext.Provider value={{ ...state, dispatch, loader }}>
       {children}
     </MainContext.Provider>
   );

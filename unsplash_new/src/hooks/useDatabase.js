@@ -1,11 +1,14 @@
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 
 export const useDatabase = () => {
   const addDocument = async (collectionName, data) => {
-    const docRef = await addDoc(collection(db, collectionName), data);
-    console.log("Document written with ID: ", docRef.id);
+    await addDoc(collection(db, collectionName), data);
   };
 
-  return { addDocument };
+  const deleteDocument = async (collectionName, id) => {
+    await deleteDoc(doc(db, collectionName, id));
+  };
+
+  return { addDocument, deleteDocument };
 };

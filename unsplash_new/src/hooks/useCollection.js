@@ -4,6 +4,7 @@ import { collection, query, where, onSnapshot } from "firebase/firestore";
 
 export const useCollection = (collectionName, Arr) => {
   const [data, setData] = useState(null);
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     if (!collectionName || !Arr) return;
@@ -13,14 +14,15 @@ export const useCollection = (collectionName, Arr) => {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const collectionData = [];
       querySnapshot.forEach((doc) => {
-        collectionData.push({ id: doc.id, ...doc.data() });
+        collectionData.push({ _id: doc.id, ...doc.data() });
       });
       setData(collectionData);
+      setLoader(false);
     });
 
     // 🧹 Listenerni tozalash
     return () => unsubscribe();
   }, [collectionName, JSON.stringify(Arr)]);
 
-  return { data };
+  return { data, loader };
 };
