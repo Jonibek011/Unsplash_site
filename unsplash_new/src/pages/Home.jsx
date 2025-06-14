@@ -20,9 +20,9 @@ function Home() {
   const prevSearchInfo = useRef(searchInfo);
 
   const { data, isPending, error } = useFetch(
-    `https://api.unsplash.com/search/photos?client_id=EvNx5eHNpObMBCiYqoBGNwAQA0RiQMVBK_FWxYRczDw&query=${
-      searchInfo ?? "All"
-    }&page=${nextPage}`
+    `https://api.unsplash.com/search/photos?client_id=${
+      import.meta.env.VITE_UNSPLASH_ACCESS_KEY
+    }&query=${searchInfo ?? "All"}&page=${nextPage}`
   );
 
   useEffect(() => {
