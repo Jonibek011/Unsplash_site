@@ -70,17 +70,20 @@ function Contact() {
               Contact me
             </h1>
             <input
+              required
               type="text"
               name="user_name"
               placeholder="Your name"
               className="py-2 px-4 rounded-3xl bord border border-orange-300 outline-none text-white  bg-transparent"
             />
             <input
+              required
               type="email"
               name="user_email"
               placeholder="Your email"
               className="py-2 px-4 rounded-3xl bord border border-orange-300 outline-none text-white  bg-transparent"
             />
+            <input type="hidden" value="Unsplash" name="project" />
             <textarea
               className="py-2 px-4 rounded-3xl bord border border-orange-300 outline-none text-white  bg-transparent"
               rows={10}
